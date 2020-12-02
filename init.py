@@ -2,7 +2,7 @@ import sys
 import logging
 
 
-def read_data(value='str', isTest=False):
+def read_data(isTest=False, value='default'):
     current_day = (sys.argv[0].split('/')[-1].split('.')[0])
     if isTest:
         filename = current_day + "_test.txt"
@@ -10,7 +10,9 @@ def read_data(value='str', isTest=False):
     else:
         filename = current_day + "_input.txt"
     with open(filename) as f:
-        if value == 'int':
+        if value == 'default':
+            return f.read().splitlines()
+        elif value == 'int':
             return [int(x) for x in f]
         elif value == 'str':
             return [str(x) for x in f]

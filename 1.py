@@ -1,7 +1,7 @@
 import itertools
 import init
 
-data = init.read_data('int', isTest=False)
+data = init.read_data(False, 'int')
 
 result = [seq for seq in itertools.combinations(data, 2) if sum(seq) == 2020]
 print(result)
