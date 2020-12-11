@@ -1,6 +1,6 @@
-import math, init
+import init
 
-data = init.read_data(True, 'int')
+data = init.read_data(False, 'int')
 
 
 def part1(input):
@@ -23,22 +23,14 @@ def part2(input):
     input.append(0)
     data = sorted(input)
     data.append(data[-1] + 3)
-    # when two sequential difference entries are 1,
-    # the first could be skipped
-    arrangements = [1]
-    adaptors = input
+    placeholders = [1] + [0 for x in range(len(data) - 1)]
+    for x in range(len(data)):
+        for y in range(1, 4):
+            if data[x] + y in data:
+                placeholders[data.index(data[x] + y)] += placeholders[x]
 
-    for i in range(1, len(adaptors)):
-        arrange = arrangements[i - 1]
-        j = i - 2
-        while j >= 0 and adaptors[i] - adaptors[j] <= 3:
-            arrange += arrangements[j]
-            j -= 1
+    return placeholders[-1]
 
-        arrangements.append(arrange)
-    print(arrangements)
-
-    return arrangements[-1]
 
 part1_sol, differences = part1(data)
 print(f'Part 1: {part1_sol}, Part 2: {part2(data)}')
