@@ -1,6 +1,4 @@
-import sys
-import logging
-
+import sys, logging
 
 def read_data(isTest=False, value='default'):
     current_day = (sys.argv[0].split('/')[-1].split('.')[0])
