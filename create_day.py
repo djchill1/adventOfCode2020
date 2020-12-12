@@ -13,6 +13,10 @@ def create_day_files(day):
     try:
         f = open(day + '.py', "x")
         f.write('import init\n\ndata = init.read_data(True, )')
+        f.write('\n\n\n\n')
+        f.write('\n\n\ndef part1():\n\treturn False')
+        f.write('\n\n\ndef part2():\n\treturn False')
+        f.write('\n\n\nprint(f\'Part 1: {part1(data)}, Part 2: {part2(data)}\')')
         f.close()
     except:
         logging.error("Can't create python file for day " + day + " due to a conflict")
