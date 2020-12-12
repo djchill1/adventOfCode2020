@@ -11,8 +11,10 @@ def create_day_files(day):
     except:
         logging.error("Can't create test file for day " + day + " due to a conflict")
     try:
-        open(day + '.py', "x")
+        f = open(day + '.py', "x")
+        f.write('import init\n\ndata = init.read_data(True, )')
+        f.close()
     except:
         logging.error("Can't create python file for day " + day + " due to a conflict")
 
-create_day_files(13)
+create_day_files(12)
