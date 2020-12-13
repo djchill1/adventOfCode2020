@@ -16,7 +16,7 @@ def create_day_files(day):
         f.write('\n\n\n\n')
         f.write('\n\n\ndef part1():\n\treturn False')
         f.write('\n\n\ndef part2():\n\treturn False')
-        f.write('\n\n\nprint(f\'Part 1: {part1(data)}, Part 2: {part2(data)}\')')
+        f.write('\n\n\nprint(f\'Part 1: {part1()}, Part 2: {part2()}\')')
         f.close()
     except:
         logging.error("Can't create python file for day " + day + " due to a conflict")
