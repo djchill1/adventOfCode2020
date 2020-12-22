@@ -55,6 +55,7 @@ def part1(isTest=False):
 	return sum(invalid_values), nearby_tickets, validations, your_ticket
 
 
+
 def part2(isTest=False):
 	invalid_values, nearby_tickets, validations, your_ticket = part1(isTest)
 
