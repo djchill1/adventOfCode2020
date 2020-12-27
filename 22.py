@@ -28,13 +28,17 @@ def play_round(queueA, queueB, isRecursive=False):
     queueB.popleft()
 
     if isRecursive:
-        if len(queueA) < cardA or len(queueB) < cardB:
+        if len(queueA) >= cardA and len(queueB) >= cardB:
+            # need to play a subgame
+            print('** Playing a sub-game to determine the winner...')
+            subQueueA = collections.deque(queueA[:cardA])
+            print(subQueueA)
+        else:
+            # no need to subgame
             if cardA > cardB:
                 winner = 'A'
             else:
                 winner = 'B'
-        else:
-            logging.error('NO WINNER FOR CARDS' + cardA + cardB)
     else:
         if cardA > cardB:
             winner = 'A'
@@ -81,7 +85,7 @@ def part2():
     print('start', queueA, queueB)
     winner = None
     while winner is None:
-        print("Round", i := i + 1)
+        print("-- Round", i := i + 1, '--')
         queueA, queueB = play_round(queueA, queueB, True)
         if tuple(queueA) in pastAs and tuple(queueB) in pastBs:
             print('A wins due to recursion')
