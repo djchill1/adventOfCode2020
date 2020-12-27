@@ -1,6 +1,5 @@
 import collections, logging
 
-
 def read_data(isTest=False):
     if isTest:
         filename = "22_test.txt"
@@ -14,7 +13,7 @@ def read_data(isTest=False):
     return queueA, queueB
 
 
-def play_round(queueA, queueB):
+def play_round(queueA, queueB, isRecursive=False):
     cardA, cardB = queueA[0], queueB[0]
     winner = None
     if cardA > cardB:
@@ -28,6 +27,21 @@ def play_round(queueA, queueB):
     queueA.popleft()
     queueB.popleft()
 
+    if isRecursive:
+        if len(queueA) < cardA or len(queueB) < cardB:
+            if cardA > cardB:
+                winner = 'A'
+            else:
+                winner = 'B'
+        else:
+            logging.error('NO WINNER FOR CARDS' + cardA + cardB)
+    else:
+        if cardA > cardB:
+            winner = 'A'
+        elif cardA < cardB:
+            winner = 'B'
+        else:
+            logging.error('NO WINNER FOR CARDS' + cardA + cardB)
     # add cards to winners queue
     if winner == 'A':
         queueA.append(cardA)
@@ -60,7 +74,27 @@ def part1():
 
 
 def part2():
-    return False
+    i = 0
+    queueA, queueB = read_data(True)
+    pastAs = set()
+    pastBs = set()
+    print('start', queueA, queueB)
+    winner = None
+    while winner is None:
+        print("Round", i := i + 1)
+        queueA, queueB = play_round(queueA, queueB, True)
+        if tuple(queueA) in pastAs and tuple(queueB) in pastBs:
+            print('A wins due to recursion')
+            winner = 'A'
+            break
+        pastAs.add(tuple(queueA))
+        pastBs.add(tuple(queueB))
+        print('iter', queueA, queueB)
+        # print('pasts', pastAs, pastBs)
 
 
-print(f'Part 1: {part1()}, Part 2: {part2()}')
+    return winner
+
+print(part2())
+
+# print(f'Part 1: {part1()}, Part 2: {part2()}')
